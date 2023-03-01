@@ -1,0 +1,36 @@
+import React, { useState, useEffect } from 'react';
+import 'react-multi-carousel/lib/styles.css';
+
+
+export const Funcionalidades = () => {
+    
+    const [funcionalidadeItems, setFuncionalidadesItems] = useState([]);
+    useEffect(() => {
+        async function fetchItems() {
+            const response = await fetch('http://localhost:3001/funcionalidades');
+            const data = await response.json();
+            setFuncionalidadesItems(data.funcionalidadeData);
+          }
+          fetchItems();
+    }, []);
+    
+    return (
+        <section className="skill" id="skills" style={{ height: '900px' }}>
+            <div className="container" style={{ height: '500px' }}>
+                <div className="row">
+                    <div className="col-12">
+                        <div className="skill-bx wow zoomIn bg-dark" style={{ height: '620px', marginTop: '100px' }}>
+                            <h2>Passo a passo</h2>
+                            <p>Realize o passo a passo.</p>
+                            <ul>
+                              {funcionalidadeItems.map((funcionalidades, index) => (
+                                <li className='fs-1' index={index}>{funcionalidades.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
+}
